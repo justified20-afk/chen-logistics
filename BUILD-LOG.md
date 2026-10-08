@@ -153,3 +153,35 @@ VERIFY:
 
 Next:
 - Browser verification of the new navigation and footer.
+
+---
+
+## Vercel deployment ✅ 2026-10-08
+
+- Moved `mongodb-memory-server` from dependencies to
+  devDependencies — it is a dev-only tool (`scripts/dev-db.mjs`),
+  so Vercel no longer downloads a 122 MB MongoDB binary during
+  production builds.
+- `next.config.ts` allows the LAN IP in `allowedDevOrigins`
+  so dev resources (HMR) load when browsing via
+  `http://192.168.1.116:3000`.
+
+Required Vercel environment variables (Project → Settings →
+Environment Variables):
+
+- **AUTH_SECRET** (required) — `lib/env.ts` intentionally
+  throws without it in production. Generate with
+  `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`
+- **MONGO_URI** (required at runtime) — hosted MongoDB
+  (e.g. MongoDB Atlas). Without it every database-backed route
+  (tracking, sign-in, register, console pages) fails at request
+  time; the marketing pages render without it.
+- **NEXT_PUBLIC_BASE_URL** / **AUTH_URL** — the production
+  domain (https://chenlogistics.vercel.app) for metadata and
+  auth callbacks.
+
+Optional: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET,
+MAP_PROVIDER, MAP_API_KEY, AUTH_GOOGLE_*, AUTH_GITHUB_*.
+
+First build failed only on the missing AUTH_SECRET — expected
+behaviour, not a code defect.
