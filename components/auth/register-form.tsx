@@ -35,20 +35,27 @@ export function RegisterForm() {
   const onSubmit = async (values: RegisterInput) => {
     setPending(true);
     setError(null);
-    const result = await registerAction(values);
-    setPending(false);
-
-    if (!result.ok) {
-      setError(result.error);
-      if (result.fieldErrors) {
-        for (const [key, messages] of Object.entries(result.fieldErrors)) {
-          form.setError(key as keyof RegisterInput, { type: "server", message: messages[0] });
+    try {
+      const result = await registerAction(values);
+      if (!result.ok) {
+        setError(result.error);
+        if (result.fieldErrors) {
+          for (const [key, messages] of Object.entries(result.fieldErrors)) {
+            form.setError(key as keyof RegisterInput, { type: "server", message: messages[0] });
+          }
         }
+        return;
       }
-      return;
+      router.push(`/signin?registered=1`);
+      router.refresh();
+    } catch {
+      // The action only throws on unexpected failures (e.g. the database
+      // is unreachable). Always clear the pending state so the button
+      // cannot spin forever, and surface a generic message.
+      setError("We couldn't create your account right now. Please try again in a moment.");
+    } finally {
+      setPending(false);
     }
-    router.push(`/signin?registered=1`);
-    router.refresh();
   };
 
   const errors = form.formState.errors;

@@ -26,14 +26,21 @@ export function ResetPasswordForm({ token }: { token: string }) {
   const onSubmit = async (values: ResetPasswordInput) => {
     setPending(true);
     setError(null);
-    const response = await resetPasswordAction(values);
-    setPending(false);
-    if (!response.ok) {
-      setError(response.error);
-      return;
+    try {
+      const response = await resetPasswordAction(values);
+      if (!response.ok) {
+        setError(response.error);
+        return;
+      }
+      setDone(true);
+      setTimeout(() => router.push("/signin"), 1500);
+    } catch {
+      // Unexpected failures (e.g. unreachable database) must not leave
+      // the submit button spinning forever.
+      setError("Something went wrong. Please try again in a moment.");
+    } finally {
+      setPending(false);
     }
-    setDone(true);
-    setTimeout(() => router.push("/signin"), 1500);
   };
 
   if (done) {

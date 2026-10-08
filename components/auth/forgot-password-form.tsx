@@ -24,13 +24,20 @@ export function ForgotPasswordForm() {
   const onSubmit = async (values: ForgotPasswordInput) => {
     setPending(true);
     setError(null);
-    const response = await forgotPasswordAction(values);
-    setPending(false);
-    if (!response.ok) {
-      setError(response.error);
-      return;
+    try {
+      const response = await forgotPasswordAction(values);
+      if (!response.ok) {
+        setError(response.error);
+        return;
+      }
+      setResult(response.data ?? null);
+    } catch {
+      // Unexpected failures (e.g. unreachable database) must not leave
+      // the submit button spinning forever.
+      setError("Something went wrong. Please try again in a moment.");
+    } finally {
+      setPending(false);
     }
-    setResult(response.data ?? null);
   };
 
   if (result) {
