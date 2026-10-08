@@ -6,7 +6,7 @@ import { Fragment } from "react";
 import { cn } from "cn";
 import { Package, ArrowRight } from "lucide-react";
 import { navForRole, navCanSee, type NavSection } from "@/lib/nav";
-import { APP_NAME, APP_TAGLINE } from "@/lib/brand";
+import { ChenLogo } from "@/components/brand/chen-logo";
 import type { RoleKey } from "@/types/permissions";
 
 export function SidebarNav({
@@ -28,13 +28,9 @@ export function SidebarNav({
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-3 px-5 py-5">
-        <span className="grid size-9 shrink-0 place-items-center rounded-md bg-primary text-primary-foreground">
-          <Package className="size-5" aria-hidden />
-        </span>
-        <span className="min-w-0">
-          <span className="block truncate text-sm font-semibold tracking-tight">{APP_NAME}</span>
-          <span className="block truncate text-[11px] text-muted-foreground">{APP_TAGLINE}</span>
-        </span>
+        <Link href="/" className="rounded-md" aria-label="Chen Logistics — home">
+          <ChenLogo size="sm" />
+        </Link>
       </div>
 
       <nav aria-label="Primary" className="flex-1 overflow-y-auto px-3 pb-6">

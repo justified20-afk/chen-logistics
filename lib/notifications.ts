@@ -49,7 +49,7 @@ export async function createNotification(input: NotificationInput): Promise<void
     }
     await db.collection("notifications").insertOne(doc);
   } catch (error) {
-    console.error("[vale] failed to store notification", {
+    console.error("[chen] failed to store notification", {
       type: input.type,
       error: error instanceof Error ? error.message : String(error),
     });

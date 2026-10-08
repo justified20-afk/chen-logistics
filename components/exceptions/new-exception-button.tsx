@@ -203,7 +203,7 @@ export function NewExceptionButton({
                   id="ex-link-value"
                   value={linkValue}
                   onChange={(event) => setLinkValue(event.target.value)}
-                  placeholder="AV-10482"
+                  placeholder="CH-10482"
                   disabled={pending}
                 />
               ) : (

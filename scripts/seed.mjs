@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Vale Logistics demo/seed data.
+ * Chen Logistics demo/seed data.
  *
  * Idempotent: every record uses a deterministic ObjectId derived from its natural
  * key, so `pnpm seed` twice updates the same dataset instead of duplicating it.
@@ -20,8 +20,8 @@ import bcrypt from "bcryptjs";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
 
-const URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/vale";
-const DB_NAME = URI.split("/").pop()?.split("?")[0] || "vale";
+const URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/chen";
+const DB_NAME = URI.split("/").pop()?.split("?")[0] || "chen";
 
 /* ------------------------------------------------------------------ helpers */
 
@@ -57,7 +57,7 @@ function hashPassword(password) {
 }
 
 function randomPassword() {
-  return `Vale-${randomBytes(4).toString("hex")}-${between(100, 999)}`;
+  return `Chen-${randomBytes(4).toString("hex")}-${between(100, 999)}`;
 }
 
 const createdPasswords = [];
@@ -197,7 +197,7 @@ async function main() {
   const upsert = (collection, key, doc) =>
     db.collection(collection).updateOne({ _id: idFor(collection, key) }, { $set: doc }, { upsert: true });
 
-  console.log(`\n[Vale] Seeding demo dataset into ${DB_NAME} (${URI})\n`);
+  console.log(`\n[Chen] Seeding demo dataset into ${DB_NAME} (${URI})\n`);
 
   /* 1 — roles / permissions ------------------------------------------------ */
   const roleDocs = [
@@ -227,15 +227,15 @@ async function main() {
   fs.mkdirSync(path.dirname(credentialsPath), { recursive: true });
 
   const seedUsers = [
-    { key: "admin", email: "admin@vale.example", name: "Ada Obi", role: "administrator" },
-    { key: "ops", email: "ops@vale.example", name: "Musa Danjuma", role: "operations_manager" },
-    { key: "dispatch", email: "dispatch@vale.example", name: "Tunde Adeyemi", role: "dispatcher" },
-    { key: "warehouse", email: "warehouse@vale.example", name: "Ngozi Eze", role: "warehouse" },
-    { key: "driver1", email: "driver1@vale.example", name: "Chinedu Okafor", role: "driver" },
-    { key: "driver2", email: "driver2@vale.example", name: "Amina Bello", role: "driver" },
-    { key: "support", email: "support@vale.example", name: "Blessing Nwosu", role: "support" },
-    { key: "finance", email: "finance@vale.example", name: "Ibrahim Sani", role: "finance" },
-    { key: "customer1", email: "customer1@vale.example", name: "Nkem Traders", role: "customer" },
+    { key: "admin", email: "admin@chen.example", name: "Ada Obi", role: "administrator" },
+    { key: "ops", email: "ops@chen.example", name: "Musa Danjuma", role: "operations_manager" },
+    { key: "dispatch", email: "dispatch@chen.example", name: "Tunde Adeyemi", role: "dispatcher" },
+    { key: "warehouse", email: "warehouse@chen.example", name: "Ngozi Eze", role: "warehouse" },
+    { key: "driver1", email: "driver1@chen.example", name: "Chinedu Okafor", role: "driver" },
+    { key: "driver2", email: "driver2@chen.example", name: "Amina Bello", role: "driver" },
+    { key: "support", email: "support@chen.example", name: "Blessing Nwosu", role: "support" },
+    { key: "finance", email: "finance@chen.example", name: "Ibrahim Sani", role: "finance" },
+    { key: "customer1", email: "customer1@chen.example", name: "Nkem Traders", role: "customer" },
   ];
 
   /* 3 — hubs ---------------------------------------------------------------- */
@@ -268,7 +268,7 @@ async function main() {
       employeeId: `DRV-${String(i + 1).padStart(4, "0")}`,
       name,
       phone: `+23480${String(between(10000000, 99999999)).slice(0, 8)}`,
-      email: `${name.split(" ")[0].toLowerCase()}.${name.split(" ")[1].toLowerCase()}@vale.example`,
+      email: `${name.split(" ")[0].toLowerCase()}.${name.split(" ")[1].toLowerCase()}@chen.example`,
       licenseNumber: `LIC-${between(100000, 999999)}`,
       licenseExpiry: expiringSoon ? daysAhead(between(3, 25)) : daysAhead(between(120, 900)),
       status,
@@ -378,7 +378,7 @@ async function main() {
   const DELIVERED_BY = ["driver1", "driver2"];
 
   shuffledStatuses.forEach((status, index) => {
-    const trackingNumber = `AV-${10001 + index}`;
+    const trackingNumber = `CH-${10001 + index}`;
     const customer = customerList[index % customerList.length];
     const originPlace = CITIES[index % CITIES.length];
     let destPlace = CITIES[(index * 5 + 3) % CITIES.length];
@@ -933,7 +933,7 @@ async function main() {
 
   /* 13 — settings ------------------------------------------------------------ */
   upsert("settings", "system", {
-    companyName: "Vale Logistics",
+    companyName: "Chen Logistics",
     tagline: "Move with clarity. Deliver with control.",
     currency: "NGN",
     timezone: "Africa/Lagos",
@@ -980,7 +980,7 @@ async function main() {
 
   /* users ------------------------------------------------------------------- */
   console.log(`  · ${"users".padEnd(16)} ${String(seedUsers.length).padStart(4)} records`);
-  let credentials = `\n# Vale Logistics demo credentials — generated ${new Date().toISOString()}\n# Local only. This file is git-ignored. Never commit credentials.\n`;
+  let credentials = `\n# Chen Logistics demo credentials — generated ${new Date().toISOString()}\n# Local only. This file is git-ignored. Never commit credentials.\n`;
 
   for (const seed of seedUsers) {
     const _id = idFor("users", seed.email);
@@ -1014,19 +1014,19 @@ async function main() {
 
   /* link driver + customer users ------------------------------------------- */
   await db.collection("users").updateOne(
-    { _id: idFor("users", "driver1@vale.example") },
+    { _id: idFor("users", "driver1@chen.example") },
     { $set: { driverId: driverList[0].id, hubId: driverList[0].hubId } },
   );
   await db.collection("users").updateOne(
-    { _id: idFor("users", "driver2@vale.example") },
+    { _id: idFor("users", "driver2@chen.example") },
     { $set: { driverId: driverList[1].id, hubId: driverList[1].hubId } },
   );
   await db.collection("users").updateOne(
-    { _id: idFor("users", "customer1@vale.example") },
+    { _id: idFor("users", "customer1@chen.example") },
     { $set: { customerId: customerList[0].id } },
   );
   await db.collection("users").updateOne(
-    { _id: idFor("users", "warehouse@vale.example") },
+    { _id: idFor("users", "warehouse@chen.example") },
     { $set: { hubId: hubList[0].id } },
   );
 
@@ -1074,8 +1074,8 @@ async function main() {
     await db.collection(collection).createIndex(keys, options);
   }
 
-  console.log(`\n[Vale] Indexes ensured across ${indexes.length} definitions.`);
-  console.log(`[Vale] Tracking events written: ${trackingList.length}`);
+  console.log(`\n[Chen] Indexes ensured across ${indexes.length} definitions.`);
+  console.log(`[Chen] Tracking events written: ${trackingList.length}`);
 
   if (createdPasswords.length > 0) {
     console.log("\n─────────── demo account credentials (shown once) ───────────\n");
@@ -1085,15 +1085,15 @@ async function main() {
     console.log(`\n  Saved to ${path.relative(root, credentialsPath)} (git-ignored).\n`);
     fs.appendFileSync(credentialsPath, credentials, "utf8");
   } else {
-    console.log("\n[Vale] All seeded accounts already exist — passwords were not rotated.");
-    console.log(`[Vale] Credentials file: ${path.relative(root, credentialsPath)}`);
+    console.log("\n[Chen] All seeded accounts already exist — passwords were not rotated.");
+    console.log(`[Chen] Credentials file: ${path.relative(root, credentialsPath)}`);
   }
 
   await client.close();
-  console.log("[Vale] Seed complete.\n");
+  console.log("[Chen] Seed complete.\n");
 }
 
 main().catch((error) => {
-  console.error("[Vale] Seed failed:", error);
+  console.error("[Chen] Seed failed:", error);
   process.exit(1);
 });

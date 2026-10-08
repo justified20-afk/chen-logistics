@@ -1,13 +1,13 @@
 /**
- * Vale brand landscape — city on the left balancing fields on the right,
- * joined by the road every shipment travels. Flat two-tone illustration
- * in the brand palette, inline so no asset pipeline is needed.
+ * Chen Logistics brand landscape — city on the left balancing fields on the
+ * right, joined by the road every shipment travels. Flat two-tone
+ * illustration in the brand palette, inline so no asset pipeline is needed.
  *
  * Animated: a lorry drives out and back along the road, a second van runs the
  * opposite lane, the lane markers stream, and the wind turbine spins. All
  * motion is CSS-only and suppressed under prefers-reduced-motion.
  */
-export function ValeLandscape({ className }: { className?: string }) {
+export function ChenLandscape({ className }: { className?: string }) {
   return (
     <svg
       className={className}
@@ -17,24 +17,24 @@ export function ValeLandscape({ className }: { className?: string }) {
       aria-label="Illustration of a city skyline on the left and rural fields on the right, joined by a road"
     >
       <defs>
-        <linearGradient id="vale-sky" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="chen-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#f7e8d0" />
           <stop offset="0.55" stopColor="#f3c98a" />
           <stop offset="1" stopColor="#e8a34a" />
         </linearGradient>
         <style>{`
-          .vale-blades { transform-origin: 1290px 296px; animation: vale-spin 7s linear infinite; }
-          .vale-blades-2 { transform-origin: 1170px 316px; animation: vale-spin 8.4s linear infinite; }
-          .vale-lane { stroke-dasharray: 26 20; animation: vale-road 1.6s linear infinite; }
-          @keyframes vale-spin { to { transform: rotate(360deg); } }
-          @keyframes vale-road { to { stroke-dashoffset: -46; } }
+          .chen-blades { transform-origin: 1290px 296px; animation: chen-spin 7s linear infinite; }
+          .chen-blades-2 { transform-origin: 1170px 316px; animation: chen-spin 8.4s linear infinite; }
+          .chen-lane { stroke-dasharray: 26 20; animation: chen-road 1.6s linear infinite; }
+          @keyframes chen-spin { to { transform: rotate(360deg); } }
+          @keyframes chen-road { to { stroke-dashoffset: -46; } }
           @media (prefers-reduced-motion: reduce) {
-            .vale-blades, .vale-blades-2, .vale-lane { animation: none; }
+            .chen-blades, .chen-blades-2, .chen-lane { animation: none; }
           }
         `}</style>
       </defs>
 
-      <rect x="0" y="0" width="1440" height="460" fill="url(#vale-sky)" />
+      <rect x="0" y="0" width="1440" height="460" fill="url(#chen-sky)" />
       <circle cx="980" cy="120" r="54" fill="#fff3dc" />
 
       {/* City side — left */}
@@ -73,12 +73,12 @@ export function ValeLandscape({ className }: { className?: string }) {
       </g>
       {/* wind turbine — animated blades */}
       <path d="M1290 392 V296" stroke="#f7f8f6" strokeWidth="6" fill="none" />
-      <g className="vale-blades" stroke="#f7f8f6" strokeWidth="6" fill="none">
+      <g className="chen-blades" stroke="#f7f8f6" strokeWidth="6" fill="none">
         <path d="M1290 296 L1290 250 M1290 296 L1242 316 M1290 296 L1338 316 M1290 296 L1290 268" />
       </g>
       {/* second, smaller turbine spinning at its own speed */}
       <path d="M1170 400 V316" stroke="#f7f8f6" strokeWidth="5" fill="none" />
-      <g className="vale-blades-2" stroke="#f7f8f6" strokeWidth="5" fill="none">
+      <g className="chen-blades-2" stroke="#f7f8f6" strokeWidth="5" fill="none">
         <path d="M1170 316 L1170 282 M1170 316 L1140 330 M1170 316 L1200 330 M1170 316 L1170 290" />
       </g>
       {/* trees */}
@@ -91,7 +91,7 @@ export function ValeLandscape({ className }: { className?: string }) {
 
       {/* Road through the middle */}
       <path d="M520 460 C600 400 700 380 830 376 C1020 371 1220 400 1450 452 L1450 460 Z" fill="#33403a" />
-      <path className="vale-lane" d="M540 452 C640 402 760 392 900 390 C1060 388 1240 414 1420 452" stroke="#f3c98a" strokeWidth="5" fill="none" />
+      <path className="chen-lane" d="M540 452 C640 402 760 392 900 390 C1060 388 1240 414 1420 452" stroke="#f3c98a" strokeWidth="5" fill="none" />
 
       {/* Two lorries cruising the outbound lane, spaced by traffic timing */}
       <g>

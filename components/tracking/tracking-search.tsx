@@ -16,7 +16,7 @@ export function TrackingSearch({ autoFocus = false }: { autoFocus?: boolean }) {
     event.preventDefault();
     const query = value.trim();
     if (query.length < 3) {
-      setError("Enter a full tracking number (for example AV-10482).");
+      setError("Enter a full tracking number (for example CH-10482).");
       return;
     }
     setPending(true);
@@ -37,7 +37,7 @@ export function TrackingSearch({ autoFocus = false }: { autoFocus?: boolean }) {
             setValue(event.target.value);
             setError(null);
           }}
-          placeholder="Enter tracking number, e.g. AV-10482"
+          placeholder="Enter tracking number, e.g. CH-10482"
           className="h-11 flex-1 bg-card"
           autoComplete="off"
         />

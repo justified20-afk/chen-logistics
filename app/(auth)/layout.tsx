@@ -1,24 +1,26 @@
 import Link from "next/link";
-import { Package } from "lucide-react";
-import { APP_NAME, APP_TAGLINE } from "@/lib/brand";
-import { ValeLandscape } from "@/components/brand/vale-landscape";
+import { APP_TAGLINE } from "@/lib/brand";
+import { ChenLogo } from "@/components/brand/chen-logo";
+import { ChenLandscape } from "@/components/brand/chen-landscape";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="bg-primary px-5 py-4 text-primary-foreground sm:px-8">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="grid size-8 place-items-center rounded-md bg-brand text-brand-foreground">
-              <Package className="size-4.5" aria-hidden />
-            </span>
-            <span className="text-sm font-semibold tracking-tight">{APP_NAME}</span>
+          <Link href="/" className="rounded-md" aria-label="Chen Logistics — home">
+            <ChenLogo size="sm" variant="onPrimary" />
           </Link>
-          <Link href="/tracking" className="text-sm text-primary-foreground/70 hover:text-primary-foreground">
-            Track a shipment
-          </Link>
+          <nav className="flex items-center gap-4">
+            <Link
+              href="/tracking"
+              className="text-sm text-primary-foreground/70 hover:text-primary-foreground"
+            >
+              Track a shipment
+            </Link>
+          </nav>
         </div>
-        <ValeLandscape className="mt-4 h-14 w-full rounded-md sm:h-20" />
+        <ChenLandscape className="mt-4 h-14 w-full rounded-md sm:h-20" />
       </header>
 
       <main className="flex flex-1 items-center justify-center px-4 py-8">

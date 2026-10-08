@@ -9,7 +9,7 @@
 const isProd = process.env.NODE_ENV === "production";
 
 export const DEV_FALLBACK_AUTH_SECRET =
-  "vale-logistics-dev-secret-do-not-use-in-production-0000";
+  "chen-logistics-dev-secret-do-not-use-in-production-0000";
 
 export function getMongoUri(): string {
   const uri = process.env.MONGO_URI?.trim();
@@ -19,7 +19,7 @@ export function getMongoUri(): string {
       "MONGO_URI is required in production. Set it in your environment before starting the server.",
     );
   }
-  return "mongodb://127.0.0.1:27017/vale";
+  return "mongodb://127.0.0.1:27017/chen";
 }
 
 export function getAuthSecret(): string {

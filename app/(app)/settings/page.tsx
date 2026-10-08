@@ -22,8 +22,8 @@ export default async function SettingsPage(): Promise<React.JSX.Element> {
   const user = await requirePermission("settings.manage");
   const settings = (await getSettings()) ?? ({
     id: "system",
-    companyName: "Vale Logistics",
-    tagline: "Move with clarity. Deliver with control.",
+    companyName: "Chen Logistics",
+    tagline: "Delivering fast, reliable shipping and logistics solutions.",
     currency: "NGN",
     timezone: "Africa/Lagos",
     defaultServiceLevel: "standard",

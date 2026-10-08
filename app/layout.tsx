@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: `%s · ${APP_NAME}`,
   },
   description:
-    "Vale Logistics is an operations platform for shipment intake, dispatch, hub processing, delivery, proof of delivery, exceptions and settlement.",
+    "Chen Logistics is an operations platform for shipment intake, dispatch, hub processing, delivery, proof of delivery, exceptions and settlement.",
   robots: { index: false, follow: false },
 };
 

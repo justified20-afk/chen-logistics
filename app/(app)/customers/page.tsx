@@ -73,7 +73,7 @@ export default async function CustomersPage({
     <div className="space-y-5 p-4 sm:p-6">
       <PageHeader
         title="Customers"
-        description="Accounts that ship with Vale, their contacts, credit terms and account standing."
+        description="Accounts that ship with Chen Logistics, their contacts, credit terms and account standing."
       />
 
       <div className="flex flex-wrap gap-2">

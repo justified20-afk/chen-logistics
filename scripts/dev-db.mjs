@@ -71,15 +71,15 @@ async function main() {
   const started = await waitForPort(port);
   if (!started) {
     console.error(
-      `\n[vale] Could not start a local MongoDB on port ${port}.\n` +
-        `[vale] Check ${path.relative(root, logFile)} or set MONGO_URI to your own database.\n`,
+      `\n[chen] Could not start a local MongoDB on port ${port}.\n` +
+        `[chen] Check ${path.relative(root, logFile)} or set MONGO_URI to your own database.\n`,
     );
     process.exit(1);
   }
-  console.log(`[vale] Local MongoDB ready on mongodb://127.0.0.1:${port}/vale (demo/dev data)`);
+  console.log(`[chen] Local MongoDB ready on mongodb://127.0.0.1:${port}/chen (demo/dev data)`);
 }
 
 main().catch((error) => {
-  console.error("[vale] dev-db failed:", error?.message ?? error);
+  console.error("[chen] dev-db failed:", error?.message ?? error);
   process.exit(1);
 });

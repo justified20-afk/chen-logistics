@@ -11,7 +11,7 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
-    console.error("[vale] unhandled route error", error);
+    console.error("[chen] unhandled route error", error);
   }, [error]);
 
   return (

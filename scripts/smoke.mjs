@@ -1,5 +1,5 @@
 /**
- * HTTP smoke test for Vale Logistics.
+ * HTTP smoke test for Chen Logistics.
  *
  * Exercises the routes the way a browser does: public pages, a real
  * credentials login through NextAuth, and the permission-guarded pages.
@@ -11,7 +11,7 @@
 import { MongoClient } from "mongodb";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:3000";
-const MONGO_URI = process.env.MONGO_URI ?? "mongodb://127.0.0.1:27017/vale";
+const MONGO_URI = process.env.MONGO_URI ?? "mongodb://127.0.0.1:27017/chen";
 
 let jar = new Map();
 const cookieHeader = () =>
@@ -140,7 +140,7 @@ async function main() {
       contains: "Shipment history",
     });
   }
-  await check("tracking unknown number", "/tracking/AV-00000", {
+  await check("tracking unknown number", "/tracking/CH-00000", {
     contains: "No shipment found",
   });
   await check("signin", "/signin", { contains: "password" });

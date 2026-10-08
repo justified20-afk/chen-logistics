@@ -40,7 +40,7 @@ export async function recordAudit(input: AuditInput): Promise<void> {
   } catch (error) {
     // Auditing must never break the operational action it describes, but the
     // failure is logged loudly for the operator.
-    console.error("[vale] failed to write audit log", {
+    console.error("[chen] failed to write audit log", {
       action: input.action,
       entityType: input.entityType,
       entityId: input.entityId,

@@ -166,16 +166,16 @@ async function nextTrackingNumber(): Promise<string> {
   const db = await getDb();
   const latest = await db
     .collection(COLLECTION)
-    .find({ trackingNumber: /^AV-\d+$/ } as never)
+    .find({ trackingNumber: /^CH-\d+$/ } as never)
     .project({ trackingNumber: 1 })
     .sort({ trackingNumber: -1 })
     .limit(1)
     .toArray();
 
   const current = latest[0]
-    ? Number(String((latest[0] as { trackingNumber: string }).trackingNumber).replace("AV-", ""))
+    ? Number(String((latest[0] as { trackingNumber: string }).trackingNumber).replace("CH-", ""))
     : 10000;
-  return `AV-${(Number.isFinite(current) ? current : 10000) + 1}`;
+  return `CH-${(Number.isFinite(current) ? current : 10000) + 1}`;
 }
 
 function normalisePackages(

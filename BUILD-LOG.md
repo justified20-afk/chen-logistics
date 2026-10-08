@@ -1,6 +1,6 @@
-# Vale Logistics — Build Log
+# Chen Logistics — Build Log
 
-Product: **Vale Logistics** — *Move with clarity. Deliver with control.*
+Product: **Chen Logistics** — *Delivering fast, reliable shipping and logistics solutions.*
 
 This is the single meta/audit file for the build. Application source never contains
 process markers.
@@ -100,3 +100,56 @@ Next:
 - Phase B continued: end-to-end status lifecycle from trip completion, POD
   capture enforcement for drivers, and customer-facing tracking email links
   behind a configured provider (no fake notifications).
+
+---
+
+## Chen Logistics rebrand + public website navigation ✅ 2026-10-08
+
+Rebranded the whole product from Vale Logistics to **Chen Logistics**
+and built the public marketing site around the company navigation spec.
+
+Built:
+- **Brand core** — `lib/brand.ts` now exports the legal company name,
+  phones, website and socials; two-line wordmark component
+  (`components/brand/chen-logo.tsx`: bold **CHEN** over lightweight
+  *logistics*); brand landscape art renamed to `chen-landscape.tsx`
+- **Public site shell** — `app/(site)` route group with sticky
+  dropdown navigation (`components/site/site-header.tsx`): About Us,
+  Products (two-column mega menu), Locations (quick links + popular
+  routes), Resources, Careers, and a right-side action area with
+  Sign Up (secondary) and Get a Quote (primary). Mobile sheet with
+  accordion menus
+- **Footer** — company intro, contact block (phones, website), social
+  icons (inline SVG brand marks — lucide v1 dropped brand icons),
+  Products / International Shipping / Company / Resources columns,
+  and the legal bottom bar (© 2026 Chen Logistics Technologies
+  Limited; Privacy · Terms · Cookie Policy)
+- **Marketing pages** — landing, About (×4), Products listing +
+  10 service pages (international page anchors #export/#import for
+  footer links), Locations listing + 5 corridor pages, Resources
+  listing + 10 resource pages (working price calculator on the
+  server rate card, FAQ accordion, prohibited-items, blog, legal
+  pages), Careers, Get a Quote (validated form), App download,
+  Mobile Experience Centre
+- **Tracking pages moved** into `(site)` so they share the site
+  header/footer; URLs `/tracking` and `/tracking/[number]` unchanged
+- **Naming cleanup** — Vale→Chen across metadata, seed data, scripts,
+  console logs, tracking-number prefix **AV-→CH-**, Mongo database
+  name `vale`→`chen`, generated passwords, export filenames
+
+Decisions:
+- **+232 phone number kept as specified but flagged** — +232 is
+  Sierra Leone while the company is Nigerian (+234). Marked with a
+  NOTE comment in `lib/brand.ts`; must be verified before publishing.
+- **Social icons are inline SVGs** — lucide-react v1 removed brand
+  icons, so LinkedIn/X/Instagram/Facebook/YouTube marks live in
+  `components/brand/social-icons.tsx`.
+- **Quote form is honest** — validated client-side, confirmation
+  generated locally, explicitly labelled "demonstration build".
+
+VERIFY:
+- `pnpm check-types` — pending
+- `pnpm lint` — pending
+
+Next:
+- Browser verification of the new navigation and footer.

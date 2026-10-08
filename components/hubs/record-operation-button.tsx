@@ -102,7 +102,7 @@ export function RecordOperationButton({
               id="hop-tracking"
               value={trackingNumber}
               onChange={(event) => setTrackingNumber(event.target.value.toUpperCase())}
-              placeholder="AV-10482"
+              placeholder="CH-10482"
               disabled={pending}
               autoFocus
             />

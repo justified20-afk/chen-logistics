@@ -1,5 +1,5 @@
 /**
- * Domain model for Vale Logistics.
+ * Domain model for Chen Logistics.
  *
  * Timestamps are exposed as ISO-8601 strings in the domain layer and stored as
  * BSON dates in MongoDB. Money values are integer minor units — see lib/money.ts.

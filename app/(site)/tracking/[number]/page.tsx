@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Package, SearchX } from "lucide-react";
-import { notFound } from "next/navigation";
-import { APP_NAME } from "@/lib/brand";
+import { SearchX } from "lucide-react";
+import { APP_NAME, TRACKING_NUMBER_EXAMPLE } from "@/lib/brand";
 import { getShipmentByTracking, listTrackingEvents } from "@/lib/shipments";
 import { TrackingSearch } from "@/components/tracking/tracking-search";
 import { ShipmentTimeline } from "@/components/shipments/shipment-timeline";
@@ -42,9 +41,8 @@ export default async function TrackingDetailPage({ params }: PageParams): Promis
 
   if (!shipment) {
     return (
-      <div className="min-h-dvh bg-background">
-        <TrackingHeader />
-        <main className="mx-auto max-w-3xl px-5 py-16">
+      <main className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="py-16">
           <div className="mx-auto max-w-md text-center">
             <span className="mx-auto grid size-12 place-items-center rounded-full bg-muted text-muted-foreground">
               <SearchX className="size-6" aria-hidden />
@@ -70,8 +68,8 @@ export default async function TrackingDetailPage({ params }: PageParams): Promis
               .
             </p>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     );
   }
 
@@ -79,9 +77,8 @@ export default async function TrackingDetailPage({ params }: PageParams): Promis
   const latest = events.length > 0 ? events[events.length - 1] : null;
 
   return (
-    <div className="min-h-dvh bg-background">
-      <TrackingHeader />
-      <main className="mx-auto max-w-3xl px-5 py-10">
+    <main className="mx-auto max-w-3xl px-4 sm:px-6">
+      <div className="border-b border-border py-10">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">
@@ -112,8 +109,10 @@ export default async function TrackingDetailPage({ params }: PageParams): Promis
             notified.
           </p>
         ) : null}
+      </div>
 
-        <section className="mt-8 rounded-lg border border-border bg-card p-5">
+      <section className="py-8">
+        <div className="rounded-lg border border-border bg-card p-5">
           <h2 className="text-sm font-semibold">Shipment history</h2>
           <p className="mt-0.5 text-xs text-muted-foreground">
             Every scan recorded by our hubs and drivers, oldest first below.
@@ -121,40 +120,18 @@ export default async function TrackingDetailPage({ params }: PageParams): Promis
           <div className="mt-5">
             <ShipmentTimeline events={events} />
           </div>
-        </section>
+        </div>
 
         <p className="mt-6 text-xs text-muted-foreground">
           Need help?{" "}
           <Link href="/signin" className="font-medium text-primary underline-offset-4 hover:underline">
             Sign in
           </Link>{" "}
-          and contact support with this tracking number.
+          and contact support with this tracking number. Example format:{" "}
+          <span className="font-mono">{TRACKING_NUMBER_EXAMPLE}</span>.
         </p>
-      </main>
-    </div>
-  );
-}
-
-function TrackingHeader() {
-  return (
-    <header className="border-b border-border">
-      <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-5 py-4">
-        <Link href="/" className="flex items-center gap-2.5">
-          <span className="grid size-8 place-items-center rounded-md bg-primary text-primary-foreground">
-            <Package className="size-4.5" aria-hidden />
-          </span>
-          <span className="text-sm font-semibold tracking-tight">{APP_NAME}</span>
-        </Link>
-        <nav className="flex items-center gap-4">
-          <Link href="/tracking" className="text-sm text-muted-foreground hover:text-foreground">
-            Track another
-          </Link>
-          <Link href="/signin" className="text-sm text-muted-foreground hover:text-foreground">
-            Sign in
-          </Link>
-        </nav>
-      </div>
-    </header>
+      </section>
+    </main>
   );
 }
 
