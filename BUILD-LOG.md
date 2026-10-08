@@ -185,3 +185,38 @@ MAP_PROVIDER, MAP_API_KEY, AUTH_GOOGLE_*, AUTH_GITHUB_*.
 
 First build failed only on the missing AUTH_SECRET — expected
 behaviour, not a code defect.
+
+---
+
+## Live deployment fixes ✅ 2026-10-08
+
+Fixed:
+- **Stuck submit spinners** — register / forgot-password /
+  reset-password forms awaited their server actions without
+  try/catch/finally, so an unexpected throw (e.g. database
+  unreachable) left the button loading forever. Actions now
+  always clear pending state and show a generic error
+  (commit `fc96292`, deployed via `vercel --prod` as
+  `chen-logistics-l17gcween`).
+- **`MONGO_URI` set** on Vercel Production (the previously
+  added `MONGODB_URI` was the wrong name — `lib/env.ts`
+  reads `MONGO_URI`).
+
+Blocking issues found on the Vercel project (dashboard
+changes needed — not code):
+
+1. **Deployment Protection is ON for Production** — every
+   unauthenticated visitor gets redirected to "Log in to
+   Vercel" (confirmed redirect loop on the production alias).
+   The site is public, so Vercel Authentication must be
+   turned off for Production (Project → Settings → Deployment
+   Protection). Keep it for Preview if desired.
+2. **No custom domain attached** — 0 domains on the project;
+   `chenlogistics.vercel.app` (the brand's stated website)
+   is not connected yet (Settings → Domains).
+3. Git push did not auto-trigger a deployment for `fc96292`
+   — check Project → Settings → Git connection.
+
+Note: while protection is on, all "200" responses from curl
+are Vercel's login page, not the app — verify with an
+incognito window.
